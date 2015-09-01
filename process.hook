@@ -1,0 +1,56 @@
+#!/bin/sh
+
+RSYNC_TARGET="mayflower@172.21.0.45:/srv/gallery/Fotos/team-bahag-taskboard/."
+
+case "$ACTION" in
+    init)
+	#echo "init"
+	echo "Waking up camera and checking connection..."
+	gphoto2 --quiet --capture-image-and-download --filename "$BASEDIR/downloaded-photos/testphoto.jpg" --hook-script "$BASEDIR/delete-testphoto.hook" 2> /dev/null
+
+	if [ $? -eq 0 ]
+ 	  then
+	    echo "Connection to camera established."
+	    echo ""
+	  else
+	    echo "Could not establish connection to camera. Aborting..."
+	    exit 1
+	fi
+	;;
+    start)
+	# do nothing
+        #echo "start"
+
+	# Setup Camera presets
+	echo "Setting up camera presets..."
+	# shootingmode=2 : Aperture Priority (Av) mode
+	gphoto2 --set-config shootingmode=2
+	# aperture=7 : Aperture F8.0 (high depth of field for a sharp picture)
+	gphoto2 --set-config aperture=7
+	# flashmode=2 : Fash off
+	gphoto2 --set-config flashmode=2
+	# iso=1 : ISO 80
+	gphoto2 --set-config iso=1
+	# zoom=9 : Zoom to taskboard
+	gphoto2 --set-config zoom=9
+	# imagequality=0 : Quality superfine
+	gphoto2 --set-config imagequality=0
+	echo ""
+	;;
+    download)
+        #echo "download"
+        echo "Uploading file to webserver...";
+        rsync --owner=www-data --group=www-data $ARGUMENT $RSYNC_TARGET
+        echo "Deleting local copy of" $ARGUMENT
+        rm $ARGUMENT
+	;;
+    stop)
+	#echo "stop"
+	# do nothing
+        ;;
+    *)
+	# unknown action
+        ;;
+esac
+
+exit 0

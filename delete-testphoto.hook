@@ -1,0 +1,22 @@
+#!/bin/sh
+
+case "$ACTION" in
+    init)
+        # exit 1 # non-null exit to make gphoto2 call fail
+        ;;
+    start)
+	# do nothing
+        ;;
+    download)
+	#echo "Deleting local copy of" $ARGUMENT
+	rm $ARGUMENT
+        ;;
+    stop)
+	# do nothing
+        ;;
+    *)
+	# unknown action
+        ;;
+esac
+
+exit 0
