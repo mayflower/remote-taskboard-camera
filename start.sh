@@ -1,6 +1,10 @@
 #!/bin/bash
 BASEDIR=`pwd`
 
+# Check for gphoto2 installation
+command -v gphoto2 >/dev/null 2>&1 || { echo >&2 "gphoto2 is not installed.  Aborting..."; exit 1; }
+
+# Check for download dir
 if [ ! -d "$BASEDIR/downloaded-photos" ]; then
 	echo "Creating folder \"$BASEDIR/downloaded-photos\"..."
 	mkdir downloaded-photos
