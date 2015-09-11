@@ -1,5 +1,10 @@
 #!/bin/bash
-BASEDIR=`pwd`
+BASEDIR="/home/mayflower/remote-taskboard-camera"
+
+# Frames per script-run.  0 ^= infinitely
+FRAMES=1
+# Interval between frames in seconds
+INTERVAL=0
 
 # Check for gphoto2 installation
 command -v gphoto2 >/dev/null 2>&1 || { echo >&2 "gphoto2 is not installed.  Aborting..."; exit 1; }
@@ -7,9 +12,9 @@ command -v gphoto2 >/dev/null 2>&1 || { echo >&2 "gphoto2 is not installed.  Abo
 # Check for download dir
 if [ ! -d "$BASEDIR/downloaded-photos" ]; then
 	echo "Creating folder \"$BASEDIR/downloaded-photos\"..."
-	mkdir downloaded-photos
+	mkdir $BASEDIR/downloaded-photos
 fi
 
-BASEDIR=$BASEDIR gphoto2 --capture-image-and-download -F 0 -I 1800 --filename "$BASEDIR/downloaded-photos/%Y-%m-%d_%H-%M.jpg" --hook-script "$BASEDIR/process.hook"
+BASEDIR=$BASEDIR gphoto2 --capture-image-and-download -F $FRAMES -I $INTERVAL --filename "$BASEDIR/downloaded-photos/%Y-%m-%d_%H-%M.jpg" --hook-script "$BASEDIR/process.hook"
 
 exit 0
