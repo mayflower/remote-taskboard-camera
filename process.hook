@@ -41,6 +41,8 @@ case "$ACTION" in
 	;;
     download)
         #echo "download"
+        echo "Postprocessing photo..."
+        php $BASEDIR/post-process-photo.php $ARGUMENT $BASEDIR
         echo "Uploading file to webserver...";
         rsync --owner=www-data --group=www-data $ARGUMENT $RSYNC_TARGET
         echo "Deleting local copy of" $ARGUMENT
