@@ -19,12 +19,14 @@ $baseDir = $argv[2];
 
 // Post-processing
 $image = new Imagick($imageFile);
-$image->sharpenImage(2,1);
-$image->contrastImage(20);
-$image->scaleimage(
+$image->resizeImage(
     $image->getImageWidth() * 0.75,
-    $image->getImageHeight() * 0.75
+    $image->getImageHeight() * 0.75,
+    Imagick::FILTER_SINC,
+    1
 );
+$image->contrastImage(20);
+$image->sharpenImage(2,1);
 
 // Add text to image
 $drawText = new ImagickDraw();
@@ -34,5 +36,5 @@ $drawText->setFontSize(100);
 $image->annotateImage($drawText, 20, 100, 0, date("D. d. M.  H:i", filemtime($imageFile)));
 
 $image->setImageCompression(Imagick::COMPRESSION_JPEG);
-$image->setImageCompressionQuality(95);
+$image->setImageCompressionQuality(90);
 $image->writeImage($imageFile);
