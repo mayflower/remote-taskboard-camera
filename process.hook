@@ -31,6 +31,8 @@ case "$ACTION" in
 	gphoto2 --set-config flashmode=2
 	# iso=1 : ISO 80
 	gphoto2 --set-config iso=1
+	# exposurecompensation=3 : Exposure +1
+    gphoto2 --set-config exposurecompensation=3
 	# zoom=9 : Zoom to taskboard
 	gphoto2 --set-config zoom=9
 	# imagequality=0 : Quality superfine
