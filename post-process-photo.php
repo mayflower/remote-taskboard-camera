@@ -23,6 +23,7 @@ $image = new Imagick($imageFile);
 $imageHeight = $image->getImageHeight();
 $imageWidth  = $image->getImageWidth();
 
+echo "-> Correcting perspective\n";
 $controlPoints = array(
     # top left
     0,0, -1000,-250,
@@ -37,25 +38,31 @@ $controlPoints = array(
 $image->distortImage(Imagick::DISTORTION_PERSPECTIVE, $controlPoints, true);
 $image->setImagePage($image->getImageWidth(), $image->getImageHeight(), 0, 0);
 
+echo "-> Cropping\n";
 $image->cropImage($image->getImageWidth(), $image->getImageHeight()-500, 0, 200);
 $image->setImagePage($image->getImageWidth(), $image->getImageHeight(), 0, 0);
 
+echo "-> Resizing\n";
 $image->resizeImage(
     $image->getImageWidth() * 0.75,
     $image->getImageHeight() * 0.75,
     Imagick::FILTER_SINC,
     1
 );
+echo "-> Adding contrast\n";
 $image->contrastImage(20);
+echo "-> Sharpening\n";
 $image->sharpenImage(2,1);
 
 // Add text to image
+echo "-> Annotate with text\n";
 $drawText = new ImagickDraw();
 $drawText->setFillColor('#ec7404');
 $drawText->setFont($baseDir . "/fonts/arial-rounded.ttf");
 $drawText->setFontSize(100);
 $image->annotateImage($drawText, 20, 100, 0, date("D. d. M.  H:i", filemtime($imageFile)));
 
+echo "-> Saving to file\n";
 $image->setImageCompression(Imagick::COMPRESSION_JPEG);
 $image->setImageCompressionQuality(90);
 $image->writeImage($imageFile);
