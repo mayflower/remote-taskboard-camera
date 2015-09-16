@@ -19,6 +19,27 @@ $baseDir = $argv[2];
 
 // Post-processing
 $image = new Imagick($imageFile);
+
+$imageHeight = $image->getImageHeight();
+$imageWidth  = $image->getImageWidth();
+
+$controlPoints = array(
+    # top left
+    0,0, -1000,-250,
+    # top right
+    $imageWidth,0, $imageWidth,0,
+    # bottom right
+    $imageWidth,$imageHeight, $imageWidth,$imageHeight,
+    # bottom left
+    0,$imageHeight, -1000,$imageHeight+390,
+);
+
+$image->distortImage(Imagick::DISTORTION_PERSPECTIVE, $controlPoints, true);
+$image->setImagePage($image->getImageWidth(), $image->getImageHeight(), 0, 0);
+
+$image->cropImage($image->getImageWidth(), $image->getImageHeight()-500, 0, 200);
+$image->setImagePage($image->getImageWidth(), $image->getImageHeight(), 0, 0);
+
 $image->resizeImage(
     $image->getImageWidth() * 0.75,
     $image->getImageHeight() * 0.75,
