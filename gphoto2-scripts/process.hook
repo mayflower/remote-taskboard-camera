@@ -6,7 +6,7 @@ case "$ACTION" in
     init)
 	#echo "init"
 	echo "Waking up camera and checking connection..."
-	gphoto2 --quiet --capture-image-and-download --filename "$BASEDIR/downloaded-photos/testphoto.jpg" --hook-script "$BASEDIR/delete-testphoto.hook" 2> /dev/null
+	gphoto2 --quiet --capture-image-and-download --filename "$BASEDIR/downloaded-photos/testphoto.jpg" --hook-script "$BASEDIR/gphoto2-scripts/delete-testphoto.hook" 2> /dev/null
 
 	if [ $? -eq 0 ]
  	  then
@@ -42,7 +42,7 @@ case "$ACTION" in
     download)
         #echo "download"
         echo "Postprocessing photo..."
-        php $BASEDIR/post-process-photo.php $ARGUMENT $BASEDIR
+        php $BASEDIR/src/scripts/post-process-photo.php $ARGUMENT $BASEDIR
         echo "Uploading file to webserver...";
         rsync --owner=www-data --group=www-data $ARGUMENT $RSYNC_TARGET
         echo "Deleting local copy of" $ARGUMENT

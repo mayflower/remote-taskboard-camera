@@ -15,6 +15,6 @@ if [ ! -d "$BASEDIR/downloaded-photos" ]; then
 	mkdir $BASEDIR/downloaded-photos
 fi
 
-BASEDIR=$BASEDIR gphoto2 --capture-image-and-download -F $FRAMES -I $INTERVAL --filename "$BASEDIR/downloaded-photos/%Y-%m-%d_%H-%M.jpg" --hook-script "$BASEDIR/process.hook"
+BASEDIR=$BASEDIR gphoto2 --capture-image-and-download -F $FRAMES -I $INTERVAL --filename "$BASEDIR/downloaded-photos/%Y-%m-%d_%H-%M.jpg" --hook-script "$BASEDIR/gphoto2-scripts/process.hook"
 
 exit 0

@@ -58,7 +58,7 @@ $image->sharpenImage(2,1);
 echo "-> Annotate with text\n";
 $drawText = new ImagickDraw();
 $drawText->setFillColor('#ec7404');
-$drawText->setFont($baseDir . "/fonts/arial-rounded.ttf");
+$drawText->setFont($baseDir . DIRECTORY_SEPARATOR . "assets/fonts/arial-rounded.ttf");
 $drawText->setFontSize(100);
 $image->annotateImage($drawText, 20, 100, 0, date("D. d. M.  H:i", filemtime($imageFile)));
 
