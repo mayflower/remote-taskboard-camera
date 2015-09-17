@@ -6,13 +6,13 @@
  */
 
 if (!isset($argv[1]) || $argv[1] == "") {
-    echo "Script called without filename parameter. Usage: php process-photo.php <filename> <basedir>\nAborting...\n";
+    echo "Script called without filename parameter. Usage: php post-process-photo.php <filename> <basedir>\nAborting...\n";
     exit(1);
 }
 $imageFile = $argv[1];
 
 if (!isset($argv[2]) || $argv[2] == "") {
-    echo "Script called without basedir parameter. Usage: php process-photo.php <filename>  <basedir>\nAborting...\n";
+    echo "Script called without basedir parameter. Usage: php post-process-photo.php <filename>  <basedir>\nAborting...\n";
     exit(1);
 }
 $baseDir = $argv[2];
