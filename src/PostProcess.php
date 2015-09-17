@@ -66,14 +66,15 @@ class PostProcess
             $baseDir = $this->_climate->arguments->get('basedir');
         }
 
-
-        // Post-processing
         $image = new \Imagick($imageFile);
 
         $imageHeight = $image->getImageHeight();
         $imageWidth  = $image->getImageWidth();
 
-        $this->_climate->out("-> Correcting perspective");
+        $this->_climate->bold('Starting post processing...')->br();
+
+        $progress = $this->_climate->progress()->total(100);
+        $progress->advance(1, 'Correcting perspective.');
         $controlPoints = array(
             # top left
             0,0, -1000,-250,
@@ -88,34 +89,35 @@ class PostProcess
         $image->distortImage(\Imagick::DISTORTION_PERSPECTIVE, $controlPoints, true);
         $image->setImagePage($image->getImageWidth(), $image->getImageHeight(), 0, 0);
 
-        $this->_climate->out("-> Cropping");
+        $progress->advance(50, 'Cropping.');
         $image->cropImage($image->getImageWidth(), $image->getImageHeight()-500, 0, 200);
         $image->setImagePage($image->getImageWidth(), $image->getImageHeight(), 0, 0);
 
-        $this->_climate->out("-> Resizing");
+        $progress->advance(10, 'Resizing.');
         $image->resizeImage(
             $image->getImageWidth() * 0.75,
             $image->getImageHeight() * 0.75,
             \Imagick::FILTER_SINC,
             1
         );
-        $this->_climate->out("-> Adding contrast");
+        $progress->advance(10, 'Adding contrast.');
         $image->contrastImage(20);
-        $this->_climate->out("-> Sharpening");
+        $progress->advance(10, 'Correcting perspective.');
         $image->sharpenImage(2,1);
 
         // Add text to image
-        $this->_climate->out("-> Annotate with text");
+        $progress->advance(10, 'Annotate with text.');
         $drawText = new \ImagickDraw();
         $drawText->setFillColor('#ec7404');
         $drawText->setFont($baseDir . DIRECTORY_SEPARATOR . "assets/fonts/arial-rounded.ttf");
         $drawText->setFontSize(100);
         $image->annotateImage($drawText, 20, 100, 0, date("D. d. M.  H:i", filemtime($imageFile)));
 
-        $this->_climate->out("-> Saving to file");
+        $progress->advance(5, 'Saving image to file.');
         $image->setImageCompression(\Imagick::COMPRESSION_JPEG);
         $image->setImageCompressionQuality(90);
 
         $image->writeImage($outFile);
+        $progress->advance(4, 'Finished post processing.');
     }
 }
