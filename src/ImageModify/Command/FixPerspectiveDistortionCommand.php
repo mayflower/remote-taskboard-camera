@@ -4,19 +4,16 @@ namespace Rtc\ImageModify\Command;
 use \Imagick;
 
 /**
- * Distorts the image.
- *
- * If the camera is not places right in front of the taskboard, the taskboard is
- * distorted on the image. Therefore there must be done a perspective correction.
+ * Fixes the perspective distortion (long-lens distortion and viewing angle distortion) of the image.
  *
  * @package Rtc\ImageModify\Command
  */
-class DistortCommand extends CommandAbstract implements CommandInterface {
+class FixPerspectiveDistortionCommand extends CommandAbstract implements CommandInterface {
 
     /**
      * @var string
      */
-    protected $_description = 'Distorting image.';
+    protected $_description = 'Fixing perspective distortion of the image.';
 
     /**
      * Command execution.
@@ -39,6 +36,9 @@ class DistortCommand extends CommandAbstract implements CommandInterface {
         );
 
         $image->distortImage(\Imagick::DISTORTION_PERSPECTIVE, $controlPoints, true);
+        $image->setImagePage($image->getImageWidth(), $image->getImageHeight(), 0, 0);
+
+        $image->cropImage($image->getImageWidth(), $image->getImageHeight()-500, 0, 200);
         $image->setImagePage($image->getImageWidth(), $image->getImageHeight(), 0, 0);
     }
 }

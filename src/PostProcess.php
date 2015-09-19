@@ -2,13 +2,12 @@
 namespace Rtc;
 
 use Rtc\ImageModify\ImageModifyInvoker;
-use Rtc\ImageModify\Command\CropCommand;
-use Rtc\ImageModify\Command\DistortCommand;
+use Rtc\ImageModify\Command\FixPerspectiveDistortionCommand;
 use Rtc\ImageModify\Command\ResizeCommand;
 use Rtc\ImageModify\Command\ContrastCommand;
 use Rtc\ImageModify\Command\SharpenCommand;
-use Rtc\ImageModify\Command\AnnotateCommand;
-use Rtc\ImageModify\Command\WriteCommand;
+use Rtc\ImageModify\Command\AnnotateWithTextCommand;
+use Rtc\ImageModify\Command\WriteToFileCommand;
 
 use \Imagick;
 use \League\CLImate\CLImate;
@@ -120,13 +119,12 @@ class PostProcess {
         $imageModifyInvoker = new ImageModifyInvoker();
         $imageModifyInvoker->addBatchJob('team-taskboard',
             array(
-                new DistortCommand(),
-                new CropCommand(),
+                new FixPerspectiveDistortionCommand(),
                 new ResizeCommand(),
                 new ContrastCommand(),
                 new SharpenCommand(),
-                new AnnotateCommand($this->_baseDir, $this->_imageFile),
-                new WriteCommand($this->_outFile),
+                new AnnotateWithTextCommand($this->_baseDir, $this->_imageFile),
+                new WriteToFileCommand($this->_outFile),
             )
         );
 

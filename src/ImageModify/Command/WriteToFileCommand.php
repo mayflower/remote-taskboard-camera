@@ -8,7 +8,7 @@ use \Imagick;
  *
  * @package Rtc\ImageModify\Command
  */
-class WriteCommand extends CommandAbstract implements CommandInterface {
+class WriteToFileCommand extends CommandAbstract implements CommandInterface {
 
     protected $_description = 'Writing image to outfile.';
 

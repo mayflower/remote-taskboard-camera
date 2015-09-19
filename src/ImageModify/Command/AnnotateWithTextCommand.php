@@ -10,7 +10,7 @@ use \ImagickPixel;
  *
  * @package Rtc\ImageModify\Command
  */
-class AnnotateCommand extends CommandAbstract implements CommandInterface
+class AnnotateWithTextCommand extends CommandAbstract implements CommandInterface
 {
     protected $_description = 'Annotate image with text.';
 
