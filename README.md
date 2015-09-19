@@ -13,7 +13,7 @@ The current version features some custom post processing with [ImageMagick](http
 
 ## Installation
 
-Using [composer](https://packagist.org/packages/league/climate):
+Using [composer](https://github.com/composer/composer):
 
 ```bash
 $ composer install
