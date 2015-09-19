@@ -1,6 +1,20 @@
 {
+    "name": "remote-taskboard-camera",
+    "description": "Control a digital camera with gphoto2 in order to realize a web-based view to a physical taskboard (agile board) for remote teams.",
+    "authors": [
+        {
+            "name": "Tobias Schlüter",
+            "email": "tobias.schlueter@mayflower.de"
+        }
+    ],
+    "repositories": [
+        {
+            "type": "vcs",
+            "url": "https://github.com/mayflower/remote-taskboard-camera"
+        }
+    ],
     "require": {
-        "league/climate": "^3.2"
+        "league/climate": "3.2.*"
     },
     "autoload": {
         "psr-4": {
