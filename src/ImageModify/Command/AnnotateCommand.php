@@ -23,8 +23,8 @@ class AnnotateCommand extends CommandAbstract implements CommandInterface
     /**
      * Initialize command.
      *
-     * @param $baseDir      Absolute path to base directory.
-     * @param $imageFile    Absolute path to image file.
+     * @param string $baseDir      Absolute path to base directory.
+     * @param string $imageFile    Absolute path to image file.
      *
      * @throws \Exception on font file error.
      */

@@ -17,7 +17,7 @@ class WriteCommand extends CommandAbstract implements CommandInterface {
     /**
      * Initialize command.
      * 
-     * @param $outFile  Absolute path to outfile where the image should be written to.
+     * @param string $outFile  Absolute path to outfile where the image should be written to.
      */
     public function __construct($outFile) {
         $this->_outFile = $outFile;
