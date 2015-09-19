@@ -132,7 +132,7 @@ class PostProcess {
     }
 
     /**
-     * Initializes the post processing by.
+     * Initializes the post processing.
      *
      * @param CLImate $climate
      *
@@ -140,6 +140,10 @@ class PostProcess {
      */
     public function initialize(CLImate $climate)
     {
+        if(!extension_loaded('imagick')) {
+            throw new \Exception("Imagemagick extension not installed.");
+        }
+
         $this->_climate = $climate;
 
         $this->_defineArguments();
