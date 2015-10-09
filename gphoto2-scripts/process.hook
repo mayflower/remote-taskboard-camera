@@ -34,7 +34,7 @@ case "$ACTION" in
 	# exposurecompensation=3 : Exposure +1
     gphoto2 --set-config exposurecompensation=3
 	# zoom=9 : Zoom to taskboard
-	gphoto2 --set-config zoom=9
+	gphoto2 --set-config zoom=3
 	# imagequality=0 : Quality superfine
 	gphoto2 --set-config imagequality=0
 	echo ""
