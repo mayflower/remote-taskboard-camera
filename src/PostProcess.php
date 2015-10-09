@@ -2,6 +2,7 @@
 namespace Rtc;
 
 use Rtc\ImageModify\ImageModifyInvoker;
+use Rtc\ImageModify\Command\RotateCommand;
 use Rtc\ImageModify\Command\FixPerspectiveDistortionCommand;
 use Rtc\ImageModify\Command\ResizeCommand;
 use Rtc\ImageModify\Command\ContrastCommand;
@@ -119,8 +120,9 @@ class PostProcess {
         $imageModifyInvoker = new ImageModifyInvoker();
         $imageModifyInvoker->addBatchJob('team-taskboard',
             array(
+                new RotateCommand(),
                 new FixPerspectiveDistortionCommand(),
-                new ResizeCommand(),
+                //new ResizeCommand(),
                 new ContrastCommand(),
                 new SharpenCommand(),
                 new AnnotateWithTextCommand($this->_baseDir, $this->_imageFile),

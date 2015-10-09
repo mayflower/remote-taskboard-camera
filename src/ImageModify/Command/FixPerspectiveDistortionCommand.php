@@ -21,24 +21,22 @@ class FixPerspectiveDistortionCommand extends CommandAbstract implements Command
      * @param Imagick $image
      */
     public function execute(Imagick $image) {
-        $imageHeight = $image->getImageHeight();
-        $imageWidth  = $image->getImageWidth();
 
         $controlPoints = array(
             # top left
-            0,0, -1000,-250,
+            138,1020, 138,1020,
             # top right
-            $imageWidth,0, $imageWidth,0,
+            4300,1027, 4300,1020,
             # bottom right
-            $imageWidth,$imageHeight, $imageWidth,$imageHeight,
+            4099,2897, 4300,3097,
             # bottom left
-            0,$imageHeight, -1000,$imageHeight+390,
+            334,2924, 138,3097
         );
 
         $image->distortImage(\Imagick::DISTORTION_PERSPECTIVE, $controlPoints, true);
         $image->setImagePage($image->getImageWidth(), $image->getImageHeight(), 0, 0);
 
-        $image->cropImage($image->getImageWidth(), $image->getImageHeight()-500, 0, 200);
-        $image->setImagePage($image->getImageWidth(), $image->getImageHeight(), 0, 0);
+        $image->cropImage(4200, 2300, 390, 800);
+        $image->setImagePage(4200, 2300, 0, 0);
     }
 }
