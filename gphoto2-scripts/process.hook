@@ -25,18 +25,22 @@ case "$ACTION" in
 	echo "Setting up camera presets..."
 	# shootingmode=2 : Aperture Priority (Av) mode
 	gphoto2 --set-config shootingmode=2
-	# aperture=7 : Aperture F8.0 (high depth of field for a sharp picture)
-	gphoto2 --set-config aperture=7
+	# aperture=2 : Aperture F4.0 (to compensate shooting angle depth of field)
+	gphoto2 --set-config aperture=2
 	# flashmode=2 : Fash off
 	gphoto2 --set-config flashmode=2
 	# iso=1 : ISO 80
 	gphoto2 --set-config iso=1
 	# exposurecompensation=3 : Exposure +1
     gphoto2 --set-config exposurecompensation=3
-	# zoom=9 : Zoom to taskboard
+	# zoom=3 : Zoom to taskboard
 	gphoto2 --set-config zoom=3
 	# imagequality=0 : Quality superfine
 	gphoto2 --set-config imagequality=0
+	# focusingpoint=1: Multiple Focusing Points (Center)
+	gphoto2 --set-config focusingpoint=1
+	# meteringmode=2 : Spot metering mode
+	gphoto2 --set-config meteringmode=2
 	echo ""
 	;;
     download)
