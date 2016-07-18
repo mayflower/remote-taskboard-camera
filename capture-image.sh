@@ -1,5 +1,6 @@
 #!/bin/bash
 BASEDIR="/home/mayflower/remote-taskboard-camera"
+FILENAME=`date +"%Y-%m-%d_%H-%M.jpg"`
 
 # Frames per script-run.  0 ^= infinitely
 FRAMES=1
@@ -15,6 +16,6 @@ if [ ! -d "$BASEDIR/downloaded-photos" ]; then
 	mkdir $BASEDIR/downloaded-photos
 fi
 
-BASEDIR=$BASEDIR gphoto2 --capture-image-and-download -F $FRAMES -I $INTERVAL --filename "$BASEDIR/downloaded-photos/%Y-%m-%d_%H-%M.jpg" --hook-script "$BASEDIR/gphoto2-scripts/process.hook"
+BASEDIR=$BASEDIR gphoto2 --capture-image-and-download -F $FRAMES -I $INTERVAL --filename "$BASEDIR/$FILENAME" --hook-script "$BASEDIR/gphoto2-scripts/process.hook"
 
 exit 0
