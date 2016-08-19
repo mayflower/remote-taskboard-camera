@@ -1,6 +1,6 @@
 #!/bin/bash
 
-RSYNC_TARGET="mayflower@172.21.0.45:/srv/gallery/Fotos/team-bahag-taskboard/."
+RSYNC_TARGET="mayflower@172.21.0.45:/srv/remote-taskboard-camera/downloaded-photos/."
 
 case "$ACTION" in
     init)
@@ -47,8 +47,6 @@ case "$ACTION" in
 	;;
     download)
         #echo "download"
-        echo "Postprocessing photo..."
-        php $BASEDIR/post-process.php -i $ARGUMENT -b $BASEDIR
         echo "Uploading file to webserver...";
         rsync --owner=www-data --group=www-data $ARGUMENT $RSYNC_TARGET
         echo "Deleting local copy of" $ARGUMENT

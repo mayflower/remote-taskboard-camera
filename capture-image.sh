@@ -18,4 +18,14 @@ fi
 
 BASEDIR=$BASEDIR gphoto2 --capture-image-and-download -F $FRAMES -I $INTERVAL --filename "$BASEDIR/$FILENAME" --hook-script "$BASEDIR/gphoto2-scripts/process.hook"
 
+
+# Process image in remote-server
+REMOTE_SERVER="mayflower@172.21.0.45"
+REMOTE_BASEDIR="/srv/remote-taskboard-camera"
+REMOTE_DOWNLOAD_DIR="/srv/remote-taskboard-camera/downloaded-photos"
+REMOTE_OUTPUT_DIR="/srv/gallery/Fotos/team-bahag-taskboard"
+
+ssh $REMOTE_SERVER 'cd '"$REMOTE_BASEDIR"' && php ./post-process.php -i '"$REMOTE_DOWNLOAD_DIR"'/'"$FILENAME"' -o '"$REMOTE_OUTPUT_DIR"'/'"$FILENAME"
+ssh $REMOTE_SERVER 'rm '"$REMOTE_DOWNLOAD_DIR"'/'"$FILENAME"
+
 exit 0
